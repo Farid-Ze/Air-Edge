@@ -30,6 +30,7 @@ export default function AdminDashboard() {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editingParticipant, setEditingParticipant] = useState<Participant | null>(null);
   const [deletingParticipant, setDeletingParticipant] = useState<Participant | null>(null);
+  const [copiedId, setCopiedId] = useState<number | null>(null);
 
   // Modal Form Data
   const [formData, setFormData] = useState({
@@ -409,7 +410,10 @@ export default function AdminDashboard() {
                         {(page - 1) * 20 + idx + 1}
                       </td>
                       <td className="px-6 py-4 font-bold text-[#111111]">
-                        {p.name}
+                        <div>{p.name}</div>
+                        <div className="text-[10px] text-gray-400 font-mono font-normal flex items-center gap-1.5 mt-0.5">
+                          <span>ID: {p.ticket_id.slice(0, 8)}...</span>
+                        </div>
                       </td>
                       <td className="px-6 py-4 text-gray-500">
                         {p.email}
@@ -440,7 +444,26 @@ export default function AdminDashboard() {
                         {p.attended_at || "—"}
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
+                        <div className="flex items-center justify-end gap-1.5">
+                          {/* Copy Ticket ID Button */}
+                          <button
+                            onClick={() => {
+                              navigator.clipboard.writeText(p.ticket_id);
+                              setCopiedId(p.id);
+                              setTimeout(() => setCopiedId(null), 2000);
+                            }}
+                            title="Salin Kode Tiket (UUID)"
+                            className="p-1.5 text-gray-500 hover:text-black hover:bg-gray-100 rounded-lg transition-colors cursor-pointer relative"
+                          >
+                            {copiedId === p.id ? (
+                              <span className="text-emerald-600 font-bold text-[11px]">✓</span>
+                            ) : (
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5" />
+                              </svg>
+                            )}
+                          </button>
+
                           {/* Edit Button */}
                           <button
                             onClick={() => openEditModal(p)}
