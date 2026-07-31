@@ -6,26 +6,30 @@ const partners = [
   {
     name: "Alfa Beauty",
     logo: "/images/logo-alfa-beauty.png",
-    width: 130,
-    height: 45,
+    width: 300,
+    height: 100,
+    maxHeight: "76px",
   },
   {
     name: "EPOCH",
     logo: "/images/logo-epoch.png",
-    width: 95,
-    height: 38,
+    width: 160,
+    height: 60,
+    maxHeight: "45px",
   },
   {
     name: "Hikari",
     logo: "/images/logo-hikari.jpeg",
-    width: 48,
-    height: 55,
+    width: 80,
+    height: 80,
+    maxHeight: "55px",
   },
   {
     name: "Gamma+",
     logo: "/images/logo-gamma.png",
-    width: 110,
-    height: 32,
+    width: 180,
+    height: 50,
+    maxHeight: "42px",
   },
 ];
 
@@ -34,24 +38,29 @@ export default function PartnersFooter() {
     <footer className="relative py-20 px-6 border-t border-gray-200 bg-[#F9F9FA] overflow-hidden">
       <div className="relative max-w-6xl mx-auto z-10">
         {/* Partners Showcase Section */}
-        <div className="mb-24 text-center">
-          <span className="inline-block px-3 py-1 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-12">
-            Official Sponsors & Brand Partners
-          </span>
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#EB9999]/15 text-[#D86B6B] text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-3">
+              Official Partnerships
+            </span>
+            <h3 className="text-2xl md:text-3xl font-black text-[#111111] uppercase tracking-tight">
+              Sponsors & Brand Partners
+            </h3>
+          </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
             {partners.map((partner) => (
               <div
                 key={partner.name}
-                className="relative group p-4 transition-all duration-300 hover:-translate-y-1"
+                className="group relative flex items-center justify-center p-4 sm:p-6 bg-white rounded-2xl border border-gray-200/70 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgba(219,169,169,0.15)] hover:border-[#DBA9A9] hover:-translate-y-1 transition-all duration-300 h-[120px]"
               >
                 <Image
                   src={partner.logo}
                   alt={partner.name}
                   width={partner.width}
                   height={partner.height}
-                  style={{ width: "auto", height: "auto" }}
-                  className="object-contain opacity-50 group-hover:opacity-100 transition-opacity duration-300 filter grayscale"
+                  style={{ width: "auto", maxHeight: partner.maxHeight }}
+                  className="object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
             ))}

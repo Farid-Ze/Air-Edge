@@ -7,37 +7,17 @@ export default function HeroSection() {
   return (
     <section className="relative w-full min-h-screen bg-[#F5F5F7] overflow-hidden flex flex-col justify-between font-sans select-none">
       
-      {/* Dynamic Background with Animated Glow Blobs and Grid */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-            x: [0, 30, 0],
-            y: [0, 40, 0]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-[#DBA9A9] rounded-full blur-[100px] md:blur-[150px] mix-blend-multiply opacity-50" 
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.5, 0.2],
-            x: [0, -40, 0],
-            y: [0, -30, 0]
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-[10%] right-[-10%] w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] bg-[#B87C7C] rounded-full blur-[100px] md:blur-[150px] mix-blend-multiply opacity-40" 
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.1, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-[-10%] left-[20%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-[#F0D5D5] rounded-full blur-[100px] md:blur-[130px] mix-blend-multiply opacity-40" 
-        />
-        
+      {/* 100% Lightweight CSS Radial Gradient Background & Grid (Zero-blur for maximum scroll performance) */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-0 overflow-hidden"
+        style={{
+          backgroundImage: `
+            radial-gradient(circle at 5% 0%, rgba(219, 169, 169, 0.5) 0%, transparent 45%),
+            radial-gradient(circle at 95% 15%, rgba(184, 124, 124, 0.35) 0%, transparent 45%),
+            radial-gradient(circle at 35% 85%, rgba(240, 213, 213, 0.4) 0%, transparent 50%)
+          `
+        }}
+      >
         {/* Modern Grid overlay with mask */}
         <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[size:40px_40px] md:bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_30%,#000_40%,transparent_100%)]" />
       </div>
@@ -55,12 +35,8 @@ export default function HeroSection() {
             <div className="w-7 h-7 bg-black text-white rounded-md flex items-center justify-center shadow-md">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 15.68a6.32 6.32 0 006.31 6.32 6.32 6.32 0 006.3-6.32V10.6a8.21 8.21 0 004.3 1.22V8.37a5.44 5.44 0 01-2.32-.49A5.33 5.33 0 0119.59 6.69z"/></svg>
             </div>
-            {/* YouTube */}
-            <div className="w-7 h-7 bg-black text-white rounded-md flex items-center justify-center shadow-md">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </div>
           </div>
-          <span className="font-bold text-xs">@alfabeauty.id</span>
+          <span className="font-bold text-xs">@alfabeauty_id</span>
         </div>
 
         {/* Logo (Centered on Mobile & Desktop) */}

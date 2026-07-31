@@ -26,7 +26,19 @@ async function apiFetch<T>(
     ...options,
   });
 
-  const data = await response.json();
+  let data: any;
+  const contentType = response.headers.get("content-type") || "";
+
+  if (contentType.includes("application/json")) {
+    try {
+      data = await response.json();
+    } catch {
+      data = { message: "Gagal membaca respon JSON dari server." };
+    }
+  } else {
+    const text = await response.text();
+    data = { message: text || `Terjadi kesalahan pada server (${response.status}).` };
+  }
 
   if (!response.ok) {
     throw {
