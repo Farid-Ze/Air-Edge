@@ -105,4 +105,111 @@ class RegistrationController extends Controller
             ],
         ], 201);
     }
+    /**
+     * GET /api/participants/{id}
+     * Detail 1 peserta
+     */
+    public function show($id): JsonResponse
+    {
+        $participant = Participant::find($id);
+        if (!$participant) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Peserta tidak ditemukan.',
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $participant,
+        ]);
+    }
+
+    /**
+     * POST /api/participants
+     * Tambah peserta manual via Admin
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:participants,email',
+            'institution' => 'nullable|string|max:255',
+            'is_attended' => 'nullable|boolean',
+        ]);
+
+        $participant = Participant::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'institution' => $validated['institution'] ?? null,
+            'is_attended' => $validated['is_attended'] ?? false,
+            'attended_at' => ($validated['is_attended'] ?? false) ? now() : null,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Peserta berhasil ditambahkan.',
+            'data' => $participant,
+        ], 201);
+    }
+
+    /**
+     * PUT/PATCH /api/participants/{id}
+     * Update data peserta
+     */
+    public function update(Request $request, $id): JsonResponse
+    {
+        $participant = Participant::find($id);
+        if (!$participant) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Peserta tidak ditemukan.',
+            ], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|email|max:255|unique:participants,email,' . $id,
+            'institution' => 'nullable|string|max:255',
+            'is_attended' => 'nullable|boolean',
+        ]);
+
+        if (array_key_exists('is_attended', $validated)) {
+            if ($validated['is_attended'] && !$participant->is_attended) {
+                $validated['attended_at'] = now();
+            } elseif (!$validated['is_attended']) {
+                $validated['attended_at'] = null;
+            }
+        }
+
+        $participant->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data peserta berhasil diperbarui.',
+            'data' => $participant,
+        ]);
+    }
+
+    /**
+     * DELETE /api/participants/{id}
+     * Hapus peserta
+     */
+    public function destroy($id): JsonResponse
+    {
+        $participant = Participant::find($id);
+        if (!$participant) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Peserta tidak ditemukan.',
+            ], 404);
+        }
+
+        $participant->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Peserta berhasil dihapus.',
+        ]);
+    }
 }

@@ -16,11 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Registrasi peserta
+// Registrasi peserta (Public)
 Route::post('/register', [RegistrationController::class, 'register']);
 
-// Daftar peserta (admin)
+// Participant CRUD & Admin Management
 Route::get('/participants', [RegistrationController::class, 'index']);
+Route::post('/participants', [RegistrationController::class, 'store']);
+Route::get('/participants/{id}', [RegistrationController::class, 'show']);
+Route::put('/participants/{id}', [RegistrationController::class, 'update']);
+Route::delete('/participants/{id}', [RegistrationController::class, 'destroy']);
 
 // Scan QR Code (absensi)
 Route::post('/scan', [AttendanceController::class, 'scan']);
