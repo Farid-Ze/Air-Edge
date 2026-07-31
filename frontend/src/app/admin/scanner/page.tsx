@@ -314,11 +314,16 @@ export default function ScannerPage() {
 
         {/* Manual Input Fallback */}
         <div className="bg-white rounded-2xl border border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.04)] p-6 mb-6">
-          <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#111111] mb-3 flex items-center gap-2">
-            <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
-            </svg>
-            INPUT MANUAL KODE TIKET
+          <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#111111] mb-3 flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+              </svg>
+              INPUT MANUAL KODE TIKET (ALTERNATIF ABSENSI)
+            </span>
+            <span className="text-[10px] font-semibold text-gray-400 normal-case hidden sm:inline">
+              Alternatif jika kamera/QR bermasalah
+            </span>
           </p>
           <form
             onSubmit={(e) => {
@@ -328,7 +333,7 @@ export default function ScannerPage() {
                 setManualTicketId("");
               }
             }}
-            className="flex gap-3"
+            className="flex gap-2 sm:gap-3"
           >
             <input
               type="text"
@@ -337,10 +342,30 @@ export default function ScannerPage() {
               placeholder="Tempel atau ketik ID Tiket (contoh: UUID)..."
               className="flex-1 px-4 py-3 bg-[#FAFAFA] border border-gray-200 rounded-xl text-xs font-medium text-[#111111] placeholder-gray-400 outline-none focus:border-[#111111] transition-colors"
             />
+
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  const text = await navigator.clipboard.readText();
+                  if (text) setManualTicketId(text.trim());
+                } catch {
+                  // Clipboard access fallback
+                }
+              }}
+              title="Tempel Kode Tiket dari Clipboard"
+              className="px-3.5 py-3 border border-gray-200 bg-[#FAFAFA] hover:border-[#111111] text-[#111111] text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+            >
+              <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5" />
+              </svg>
+              <span>Tempel</span>
+            </button>
+
             <button
               type="submit"
               disabled={!manualTicketId.trim() || isProcessing}
-              className="px-6 py-3 bg-[#111111] hover:bg-[#D86B6B] text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all disabled:opacity-40 cursor-pointer"
+              className="px-5 sm:px-6 py-3 bg-[#111111] hover:bg-[#D86B6B] text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all disabled:opacity-40 cursor-pointer whitespace-nowrap"
             >
               Check-In
             </button>
