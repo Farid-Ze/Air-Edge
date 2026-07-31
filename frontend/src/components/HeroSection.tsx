@@ -7,13 +7,39 @@ export default function HeroSection() {
   return (
     <section className="relative w-full min-h-screen bg-[#F5F5F7] overflow-hidden flex flex-col justify-between font-sans select-none">
       
-      {/* Subtle Background Waves/Gradients */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-gradient-to-br from-[#E2E2E2] to-transparent rounded-full blur-[120px] mix-blend-multiply opacity-60" />
-        <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] bg-gradient-to-bl from-[#E2E2E2] to-transparent rounded-full blur-[120px] mix-blend-multiply opacity-60" />
+      {/* Dynamic Background with Animated Glow Blobs and Grid */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.6, 0.3],
+            x: [0, 30, 0],
+            y: [0, 40, 0]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-[#DBA9A9] rounded-full blur-[100px] md:blur-[150px] mix-blend-multiply opacity-50" 
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.5, 0.2],
+            x: [0, -40, 0],
+            y: [0, -30, 0]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute top-[10%] right-[-10%] w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] bg-[#B87C7C] rounded-full blur-[100px] md:blur-[150px] mix-blend-multiply opacity-40" 
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.1, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-[-10%] left-[20%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-[#F0D5D5] rounded-full blur-[100px] md:blur-[130px] mix-blend-multiply opacity-40" 
+        />
         
-        {/* Super subtle grid overlay */}
-        <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]" />
+        {/* Modern Grid overlay with mask */}
+        <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[size:40px_40px] md:bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_30%,#000_40%,transparent_100%)]" />
       </div>
 
       {/* Top Header (UX Best Practice: Clean Centered Logo on Mobile, Full 3-Column on Desktop) */}

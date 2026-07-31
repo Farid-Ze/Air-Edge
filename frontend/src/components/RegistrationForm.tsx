@@ -63,9 +63,15 @@ export default function RegistrationForm() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-14 sm:py-28 px-3 sm:px-6 bg-[#F9F9FA]"
+      className="relative py-14 sm:py-28 px-3 sm:px-6 bg-[#F9F9FA] overflow-hidden"
       id="registration"
     >
+      {/* Lightweight Static Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FAFAFA] via-[#F9F6F0] to-[#F0D5D5]/30" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#DBA9A9]/30 to-transparent" />
+      </div>
+
       <div className="relative max-w-xl mx-auto z-10">
         {/* Section Header */}
         <div

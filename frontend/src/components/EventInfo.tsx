@@ -59,8 +59,9 @@ const journeyEvents: JourneyEvent[] = [
 export default function EventInfo() {
   return (
     <section className="relative py-24 md:py-32 px-4 md:px-8 bg-[#F9F9FA] overflow-hidden font-sans select-none" id="event-info">
-      {/* Subtle Background Glow */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* Lightweight Static Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(#DBA9A9_1px,transparent_1px)] [background-size:24px_24px] opacity-20 [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_20%,transparent_100%)]" />
         <div className="absolute top-[30%] left-[-10%] w-[500px] h-[500px] bg-[#EB9999]/10 rounded-full blur-[140px]" />
         <div className="absolute bottom-[20%] right-[-10%] w-[500px] h-[500px] bg-[#111111]/5 rounded-full blur-[140px]" />
       </div>

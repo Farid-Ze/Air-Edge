@@ -28,7 +28,14 @@ const speakers = [
 
 export default function SpeakerSection() {
   return (
-    <section className="relative py-24 md:py-32 px-4 md:px-8 bg-[#FAFAFA] font-sans select-none" id="speakers">
+    <section className="relative py-24 md:py-32 px-4 md:px-8 bg-[#FAFAFA] overflow-hidden font-sans select-none" id="speakers">
+      {/* Lightweight Static Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#00000003_10px,#00000003_20px)]" />
+        <div className="absolute top-0 right-0 w-full h-[30%] bg-gradient-to-b from-[#FAFAFA] to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-[30%] bg-gradient-to-t from-[#FAFAFA] to-transparent" />
+      </div>
+
       <div className="relative max-w-6xl mx-auto z-10">
         {/* Minimalist Header */}
         <motion.div
