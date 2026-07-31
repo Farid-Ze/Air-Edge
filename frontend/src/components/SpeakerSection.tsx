@@ -94,17 +94,6 @@ export default function SpeakerSection() {
                   </p>
                 </div>
 
-                {/* Skills - Pushed to bottom */}
-                <div className="mt-auto pt-6 border-t border-gray-100 flex flex-wrap gap-2.5">
-                  {speaker.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-4 py-1.5 text-[11px] font-bold text-gray-600 bg-gray-50 rounded-full tracking-wide border border-gray-200/60 shadow-sm"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
               </div>
             </motion.div>
           ))}
