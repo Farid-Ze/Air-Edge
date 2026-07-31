@@ -144,3 +144,47 @@ export async function getParticipants(
 
   return apiFetch<ParticipantsResponse>(`/participants?${params}`);
 }
+
+/**
+ * POST /api/participants — Admin tambah peserta manual.
+ */
+export async function createParticipant(payload: {
+  name: string;
+  email: string;
+  institution?: string;
+  is_attended?: boolean;
+}): Promise<{ success: boolean; message: string; data: Participant }> {
+  return apiFetch<{ success: boolean; message: string; data: Participant }>("/participants", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+/**
+ * PUT /api/participants/{id} — Admin update peserta.
+ */
+export async function updateParticipant(
+  id: number,
+  payload: {
+    name?: string;
+    email?: string;
+    institution?: string;
+    is_attended?: boolean;
+  }
+): Promise<{ success: boolean; message: string; data: Participant }> {
+  return apiFetch<{ success: boolean; message: string; data: Participant }>(`/participants/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+}
+
+/**
+ * DELETE /api/participants/{id} — Admin hapus peserta.
+ */
+export async function deleteParticipant(
+  id: number
+): Promise<{ success: boolean; message: string }> {
+  return apiFetch<{ success: boolean; message: string }>(`/participants/${id}`, {
+    method: "DELETE",
+  });
+}
