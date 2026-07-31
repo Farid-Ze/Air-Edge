@@ -63,32 +63,32 @@ export default function RegistrationForm() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-28 px-6 bg-[#F9F9FA]"
+      className="relative py-14 sm:py-28 px-3 sm:px-6 bg-[#F9F9FA]"
       id="registration"
     >
       <div className="relative max-w-xl mx-auto z-10">
         {/* Section Header */}
         <div
-          className={`text-center mb-10 transition-all duration-700 ${
+          className={`text-center mb-8 sm:mb-10 transition-all duration-700 ${
             isVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-8"
           }`}
         >
-          <span className="inline-block px-3 py-1 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
+          <span className="inline-block px-3 py-1 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-3 sm:mb-4">
             Pass & Registration
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111111] font-heading tracking-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-[#111111] font-heading tracking-tight">
             DAFTAR SEKARANG
           </h2>
-          <p className="text-gray-500 mt-4 text-sm max-w-md mx-auto font-medium">
+          <p className="text-gray-500 mt-2 sm:mt-4 text-xs sm:text-sm max-w-md mx-auto font-medium px-2">
             Isi formulir di bawah ini untuk mengamankan tiket Anda. QR Code tiket resmi akan langsung dikirimkan ke email Anda.
           </p>
         </div>
 
         {/* Editorial Form Card Container */}
         <div
-          className={`bg-white rounded-2xl p-8 sm:p-12 border border-gray-200/60 shadow-[0_4px_24px_rgba(0,0,0,0.03)] relative overflow-hidden transition-all duration-700 ${
+          className={`bg-white rounded-2xl p-5 sm:p-12 border border-gray-200/60 shadow-[0_4px_24px_rgba(0,0,0,0.03)] relative overflow-hidden transition-all duration-700 ${
             isVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-12"
@@ -96,12 +96,12 @@ export default function RegistrationForm() {
           style={{ transitionDelay: "150ms" }}
         >
           {/* Form Step Header */}
-          <div className="flex items-center justify-between gap-4 mb-8 pb-5 border-b border-gray-100">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#111111]">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-6 pb-4 border-b border-gray-100">
+            <div className="flex items-center gap-2 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#111111]">
               <span className="w-2 h-2 rounded-full bg-[#111111]" />
-              <span>Pendaftaran Resmi AIR & EDGE</span>
+              <span>Pendaftaran Resmi AIR &amp; EDGE</span>
             </div>
-            <span className="text-[10px] font-bold text-white px-3 py-1 bg-[#D86B6B] uppercase tracking-widest">
+            <span className="text-[9px] sm:text-[10px] font-bold text-white px-2.5 py-0.5 sm:px-3 sm:py-1 bg-[#D86B6B] uppercase tracking-widest rounded-sm">
               FREE ACCESS
             </span>
           </div>

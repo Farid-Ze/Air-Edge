@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import PartnersFooter from "@/components/PartnersFooter";
 import { scanTicket, type ScanResponse } from "@/lib/api";
 
 interface ScanResult {
@@ -15,10 +17,29 @@ export default function ScannerPage() {
   const scannerRef = useRef<HTMLDivElement>(null);
   const html5QrCodeRef = useRef<unknown>(null);
   const [isScanning, setIsScanning] = useState(false);
+  const [manualTicketId, setManualTicketId] = useState("");
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [scanHistory, setScanHistory] = useState<ScanResult[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const lastScannedRef = useRef<string>("");
+
+  // Safeguard Node.prototype.removeChild for html5-qrcode DOM manipulation
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const originalRemoveChild = Node.prototype.removeChild;
+    Node.prototype.removeChild = function <T extends Node>(child: T): T {
+      if (child.parentNode !== this) {
+        if (child.parentNode) {
+          return child.parentNode.removeChild(child) as T;
+        }
+        return child;
+      }
+      return originalRemoveChild.call(this, child) as T;
+    };
+    return () => {
+      Node.prototype.removeChild = originalRemoveChild;
+    };
+  }, []);
 
   const handleScan = useCallback(
     async (decodedText: string) => {
@@ -87,6 +108,18 @@ export default function ScannerPage() {
   const startScanner = useCallback(async () => {
     if (!scannerRef.current) return;
 
+    // Stop existing instance safely
+    if (html5QrCodeRef.current) {
+      try {
+        const prev = html5QrCodeRef.current as { stop: () => Promise<void>; clear: () => void };
+        await prev.stop();
+        prev.clear();
+      } catch {
+        // Ignore previous instance cleanup errors
+      }
+      html5QrCodeRef.current = null;
+    }
+
     try {
       const { Html5Qrcode } = await import("html5-qrcode");
       const scanner = new Html5Qrcode("qr-reader");
@@ -123,15 +156,29 @@ export default function ScannerPage() {
     const scanner = html5QrCodeRef.current as {
       stop: () => Promise<void>;
       clear: () => void;
+      isScanning?: boolean;
     } | null;
+
     if (scanner) {
       try {
-        await scanner.stop();
+        if (scanner.isScanning) {
+          await scanner.stop();
+        } else {
+          await scanner.stop().catch(() => {});
+        }
+      } catch {
+        // Ignore stop error
+      }
+
+      try {
         scanner.clear();
       } catch {
-        // Ignore
+        // Ignore clear DOM error if already removed
       }
+
+      html5QrCodeRef.current = null;
     }
+
     setIsScanning(false);
   }, []);
 
@@ -141,79 +188,170 @@ export default function ScannerPage() {
     };
   }, [stopScanner]);
 
-  const resultStyles = {
-    success: "border-success/30 bg-success/5",
-    warning: "border-warning/30 bg-warning/5",
-    error: "border-error/30 bg-error/5",
-  };
-
-  const resultIcons = {
-    success: "✅",
-    warning: "⚠️",
-    error: "❌",
-  };
-
   return (
-    <main className="min-h-screen px-6 py-10">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+    <div className="min-h-screen bg-[#F5F5F7] flex flex-col font-sans select-none relative overflow-hidden">
+      {/* Subtle Background Lighting & Grid */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-gradient-to-br from-[#E2E2E2] to-transparent rounded-full blur-[140px] opacity-60" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[50%] h-[50%] bg-gradient-to-bl from-[#EB9999]/15 to-transparent rounded-full blur-[140px]" />
+        <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]" />
+      </div>
+
+      {/* Signature Brand Header */}
+      <header className="relative z-20 flex items-center justify-between px-6 md:px-12 pt-4 pb-4 w-full max-w-[1600px] mx-auto text-xs font-semibold tracking-wider text-black border-b border-gray-200/50">
+        {/* Socials */}
+        <div className="flex items-center gap-3 w-1/3">
+          <div className="flex gap-1.5">
+            <div className="w-7 h-7 bg-black text-white rounded-md flex items-center justify-center shadow-md">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </div>
+            <div className="w-7 h-7 bg-black text-white rounded-md flex items-center justify-center shadow-md">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 15.68a6.32 6.32 0 006.31 6.32 6.32 6.32 0 006.3-6.32V10.6a8.21 8.21 0 004.3 1.22V8.37a5.44 5.44 0 01-2.32-.49A5.33 5.33 0 0119.59 6.69z"/></svg>
+            </div>
+            <div className="w-7 h-7 bg-black text-white rounded-md flex items-center justify-center shadow-md">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </div>
+          </div>
+          <span className="hidden md:inline font-bold text-[11px] md:text-xs">@alfabeauty.id</span>
+        </div>
+
+        {/* Logo */}
+        <div className="w-1/3 flex justify-center">
+          <Link href="/">
+            <Image
+              src="/images/logo-alfa-beauty.png"
+              alt="Alfa Beauty"
+              width={240}
+              height={80}
+              style={{ width: "auto", height: "auto" }}
+              className="h-10 md:h-16 w-auto object-contain drop-shadow-sm hover:opacity-90 transition-opacity"
+              priority
+            />
+          </Link>
+        </div>
+
+        {/* Tagline */}
+        <div className="w-1/3 text-right">
+          <span className="hidden md:inline-block italic text-gray-500 font-medium text-[10px] md:text-[11px]">
+            Inspiration. Collaboration. Elevation.
+          </span>
+        </div>
+      </header>
+
+      {/* Main Content Area */}
+      <main className="relative z-10 flex-1 px-4 md:px-8 py-10 max-w-3xl w-full mx-auto">
+        
+        {/* Title & Nav Row */}
+        <div className="flex items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-foreground">QR Scanner</h1>
-            <p className="text-sm text-muted-foreground mt-1">
-              Scan QR Code peserta untuk absensi
+            <span className="inline-block px-3 py-1 bg-[#111111] text-white text-[10px] font-bold tracking-[0.2em] uppercase rounded-md mb-2">
+              ATTENDANCE SCANNER
+            </span>
+            <h1 className="text-2xl md:text-4xl font-black text-[#111111] uppercase tracking-tight">
+              QR CODE SCANNER
+            </h1>
+            <p className="text-xs text-gray-500 font-medium tracking-wider uppercase mt-1">
+              AIR <span className="text-[#D86B6B]">&amp;</span> EDGE 2026 • ABSENSI WRISTBAND
             </p>
           </div>
+
           <Link
             href="/admin"
-            className="glass px-4 py-2.5 rounded-xl text-sm text-muted hover:text-foreground transition-colors"
+            className="inline-flex items-center justify-center px-5 py-3 border border-gray-200 bg-white hover:border-[#111111] text-[#111111] text-xs font-bold uppercase tracking-widest rounded-xl transition-all"
           >
             ← Dashboard
           </Link>
         </div>
 
-        {/* Scanner Area */}
-        <div className="glass-light rounded-2xl p-6 mb-6">
+        {/* Scanner Enclosure Card */}
+        <div className="bg-white rounded-2xl border border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.05)] p-6 mb-6">
           <div
             ref={scannerRef}
             id="qr-reader"
-            className="w-full rounded-2xl overflow-hidden bg-charcoal min-h-[300px] flex items-center justify-center"
+            className="w-full rounded-2xl overflow-hidden bg-[#111111] min-h-[300px] flex items-center justify-center relative"
           >
             {!isScanning && (
-              <div className="text-center p-8">
-                <div className="text-5xl mb-4">📷</div>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Klik tombol di bawah untuk memulai scanner
+              <div className="text-center p-8 text-white">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/10 flex items-center justify-center">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0c-.693.047-1.32.443-1.736 1.039l-.821 1.316z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                  </svg>
+                </div>
+                <p className="text-gray-300 text-xs font-semibold uppercase tracking-wider mb-2">
+                  Kamera Belum Aktif
+                </p>
+                <p className="text-gray-400 text-xs max-w-xs mx-auto">
+                  Klik tombol di bawah untuk memulai pemindaian QR Code peserta.
                 </p>
               </div>
             )}
           </div>
 
           {/* Scanner Controls */}
-          <div className="flex gap-3 mt-4">
+          <div className="mt-4">
             {!isScanning ? (
               <button
                 onClick={startScanner}
-                className="btn-primary flex-1 py-3"
+                className="w-full inline-flex items-center justify-center gap-2 py-4 bg-[#111111] hover:bg-[#D86B6B] text-white text-xs font-bold uppercase tracking-widest rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer"
               >
-                📷 Mulai Scan
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0c-.693.047-1.32.443-1.736 1.039l-.821 1.316z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
+                </svg>
+                Mulai Scan Kamera
               </button>
             ) : (
               <button
                 onClick={stopScanner}
-                className="flex-1 py-3 glass rounded-xl text-sm font-medium text-error hover:bg-error/10 transition-colors cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 py-4 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-widest rounded-xl shadow-md transition-all cursor-pointer"
               >
-                ⬛ Hentikan Scanner
+                Hentikan Scanner
               </button>
             )}
           </div>
         </div>
 
+        {/* Manual Input Fallback */}
+        <div className="bg-white rounded-2xl border border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.04)] p-6 mb-6">
+          <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#111111] mb-3 flex items-center gap-2">
+            <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+            </svg>
+            INPUT MANUAL KODE TIKET
+          </p>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (manualTicketId.trim()) {
+                handleScan(manualTicketId.trim());
+                setManualTicketId("");
+              }
+            }}
+            className="flex gap-3"
+          >
+            <input
+              type="text"
+              value={manualTicketId}
+              onChange={(e) => setManualTicketId(e.target.value)}
+              placeholder="Tempel atau ketik ID Tiket (contoh: UUID)..."
+              className="flex-1 px-4 py-3 bg-[#FAFAFA] border border-gray-200 rounded-xl text-xs font-medium text-[#111111] placeholder-gray-400 outline-none focus:border-[#111111] transition-colors"
+            />
+            <button
+              type="submit"
+              disabled={!manualTicketId.trim() || isProcessing}
+              className="px-6 py-3 bg-[#111111] hover:bg-[#D86B6B] text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all disabled:opacity-40 cursor-pointer"
+            >
+              Check-In
+            </button>
+          </form>
+        </div>
+
         {/* Processing Indicator */}
         {isProcessing && (
-          <div className="glass-accent rounded-2xl p-4 mb-6 flex items-center gap-3 animate-pulse">
-            <div className="animate-spin h-5 w-5 border-2 border-accent border-t-transparent rounded-full" />
-            <p className="text-sm text-accent">Memproses QR Code...</p>
+          <div className="bg-white border border-[#D86B6B]/40 rounded-2xl p-4 mb-6 flex items-center gap-3 animate-pulse shadow-sm">
+            <div className="animate-spin h-5 w-5 border-2 border-[#D86B6B] border-t-transparent rounded-full" />
+            <p className="text-xs font-bold text-[#D86B6B] uppercase tracking-wider">Memproses ID Tiket...</p>
           </div>
         )}
 
@@ -221,45 +359,39 @@ export default function ScannerPage() {
         {scanResult && !isProcessing && (
           <div
             className={`rounded-2xl p-6 mb-6 border ${
-              resultStyles[scanResult.type]
-            } animate-scale-in`}
+              scanResult.type === "success"
+                ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                : scanResult.type === "warning"
+                ? "bg-amber-50 border-amber-200 text-amber-900"
+                : "bg-red-50 border-red-200 text-red-900"
+            }`}
           >
             <div className="flex items-start gap-3">
-              <span className="text-2xl">
-                {resultIcons[scanResult.type]}
-              </span>
+              <div className="mt-0.5">
+                {scanResult.type === "success" ? (
+                  <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                ) : scanResult.type === "warning" ? (
+                  <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+                ) : (
+                  <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                )}
+              </div>
               <div className="flex-1">
-                <p className="text-foreground font-medium">
+                <p className="font-extrabold text-sm uppercase tracking-wide">
                   {scanResult.message}
                 </p>
                 {scanResult.data && (
-                  <div className="mt-3 space-y-1">
-                    <p className="text-sm text-muted">
-                      <span className="text-muted-foreground">Nama:</span>{" "}
-                      <span className="text-foreground font-medium">
-                        {scanResult.data.name}
-                      </span>
-                    </p>
-                    <p className="text-sm text-muted">
-                      <span className="text-muted-foreground">Email:</span>{" "}
-                      {scanResult.data.email}
-                    </p>
+                  <div className="mt-3 p-4 bg-white/80 rounded-xl border border-black/5 space-y-1 text-xs text-gray-700 font-medium">
+                    <p><span className="text-gray-400 font-bold uppercase text-[10px]">Nama:</span> <strong className="text-[#111111]">{scanResult.data.name}</strong></p>
+                    <p><span className="text-gray-400 font-bold uppercase text-[10px]">Email:</span> {scanResult.data.email}</p>
                     {scanResult.data.institution && (
-                      <p className="text-sm text-muted">
-                        <span className="text-muted-foreground">
-                          Instansi:
-                        </span>{" "}
-                        {scanResult.data.institution}
-                      </p>
+                      <p><span className="text-gray-400 font-bold uppercase text-[10px]">Instansi:</span> {scanResult.data.institution}</p>
                     )}
-                    <p className="text-sm text-muted">
-                      <span className="text-muted-foreground">Waktu:</span>{" "}
-                      {scanResult.data.attended_at}
-                    </p>
+                    <p><span className="text-gray-400 font-bold uppercase text-[10px]">Waktu:</span> {scanResult.data.attended_at}</p>
                   </div>
                 )}
-                <p className="text-xs text-muted-foreground mt-2">
-                  Scan: {scanResult.timestamp}
+                <p className="text-[10px] text-gray-400 font-mono mt-2">
+                  Timestamp: {scanResult.timestamp}
                 </p>
               </div>
             </div>
@@ -268,30 +400,34 @@ export default function ScannerPage() {
 
         {/* Scan History */}
         {scanHistory.length > 0 && (
-          <div className="glass-light rounded-2xl overflow-hidden">
-            <div className="px-6 py-4 border-b border-black/5">
-              <h3 className="text-sm font-medium text-foreground">
+          <div className="bg-white rounded-2xl border border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.04)] overflow-hidden">
+            <div className="px-6 py-4 border-b border-gray-100 bg-[#FAFAFA]">
+              <h3 className="text-xs font-bold text-[#111111] uppercase tracking-widest">
                 Riwayat Scan ({scanHistory.length})
               </h3>
             </div>
-            <div className="divide-y divide-black/5 max-h-[400px] overflow-y-auto">
+            <div className="divide-y divide-gray-100 max-h-[400px] overflow-y-auto">
               {scanHistory.map((result, idx) => (
                 <div
                   key={idx}
-                  className="px-6 py-3 flex items-center gap-3 hover:bg-black/3 transition-colors"
+                  className="px-6 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-xs"
                 >
-                  <span className="text-sm">
-                    {resultIcons[result.type]}
-                  </span>
+                  {result.type === "success" ? (
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                  ) : result.type === "warning" ? (
+                    <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
+                  ) : (
+                    <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" />
+                  )}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-foreground truncate">
+                    <p className="font-bold text-[#111111] truncate">
                       {result.data?.name || result.message}
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-[10px] text-gray-400 truncate">
                       {result.message}
                     </p>
                   </div>
-                  <span className="text-xs text-muted-foreground whitespace-nowrap">
+                  <span className="text-[10px] font-mono text-gray-400 whitespace-nowrap">
                     {result.timestamp}
                   </span>
                 </div>
@@ -299,7 +435,10 @@ export default function ScannerPage() {
             </div>
           </div>
         )}
-      </div>
-    </main>
+      </main>
+
+      {/* Official Partners & Brand Footer */}
+      <PartnersFooter />
+    </div>
   );
 }

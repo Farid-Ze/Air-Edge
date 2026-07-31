@@ -50,6 +50,7 @@ export default function PartnersFooter() {
                   alt={partner.name}
                   width={partner.width}
                   height={partner.height}
+                  style={{ width: "auto", height: "auto" }}
                   className="object-contain opacity-50 group-hover:opacity-100 transition-opacity duration-300 filter grayscale"
                 />
               </div>
