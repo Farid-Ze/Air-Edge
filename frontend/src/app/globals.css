@@ -1,0 +1,293 @@
+@import "tailwindcss";
+
+/* ============================================
+   AIR & EDGE — Design System (Tailwind v4)
+   ============================================ */
+
+@theme inline {
+  /* Colors — Inspired by flyer palette */
+  --color-primary: #000000;
+  --color-primary-light: #1A1A1A;
+  --color-accent: #DBA9A9;
+  --color-accent-dark: #B87C7C;
+  --color-accent-light: #F0D5D5;
+  --color-cream: #F5F0EB;
+  --color-cream-dark: #E8E0D8;
+  --color-charcoal: #FFFFFF;
+  --color-charcoal-light: #F3F4F6;
+
+  /* Semantic */
+  --color-background: #F9F6F0;
+  --color-foreground: #1A1A1A;
+  --color-muted: #999999;
+  --color-muted-foreground: #666666;
+  --color-success: #22C55E;
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+
+  /* Fonts */
+  --font-heading: var(--font-alfa-slab);
+  --font-body: var(--font-poppins);
+  --font-sans: var(--font-poppins);
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-fade-in-up: fade-in-up 0.7s ease-out forwards;
+  --animate-fade-in-down: fade-in-down 0.5s ease-out forwards;
+  --animate-scale-in: scale-in 0.5s ease-out forwards;
+  --animate-slide-left: slide-left 0.8s ease-out forwards;
+  --animate-slide-right: slide-right 0.8s ease-out forwards;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+/* ============================================
+   Keyframe Animations
+   ============================================ */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-left {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-right {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(219, 169, 169, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(219, 169, 169, 0.6); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   Glassmorphism Utility
+   ============================================ */
+
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+}
+
+.glass-accent {
+  background: rgba(219, 169, 169, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(219, 169, 169, 0.2);
+  box-shadow: 0 15px 35px -10px rgba(219, 169, 169, 0.15);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.glass-glow {
+  position: relative;
+}
+
+.glass-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(219, 169, 169, 0.4), transparent 60%, rgba(184, 124, 124, 0.3));
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.6;
+  transition: opacity 0.5s ease;
+}
+
+/* ============================================
+   Gradient Utilities
+   ============================================ */
+
+.gradient-accent {
+  background: linear-gradient(135deg, #DBA9A9 0%, #B87C7C 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(180deg, #F9F6F0 0%, #FFFFFF 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(180deg, #F9F6F0 0%, #FFFFFF 40%, #F9F6F0 100%);
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #DBA9A9 0%, #F0D5D5 50%, #DBA9A9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   Custom Scrollbar
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F9F6F0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CCCCCC;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #DBA9A9;
+}
+
+/* ============================================
+   Form Input Styles
+   ============================================ */
+
+.input-field {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  color: #1A1A1A;
+  font-size: 15px;
+  font-family: var(--font-body), system-ui, sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: #DBA9A9;
+  box-shadow: 0 0 0 3px rgba(219, 169, 169, 0.15);
+  background: rgba(255, 255, 255, 1);
+}
+
+.input-field::placeholder {
+  color: #999999;
+}
+
+/* ============================================
+   Button Styles
+   ============================================ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 36px;
+  background: linear-gradient(135deg, #DBA9A9 0%, #B87C7C 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(219, 169, 169, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ============================================
+   Scanner Styles (html5-qrcode overrides)
+   ============================================ */
+
+#qr-reader {
+  border: none !important;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+#qr-reader video {
+  border-radius: 16px;
+}
+
+#qr-reader__scan_region {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+#qr-reader__dashboard {
+  padding: 16px !important;
+}
+
+#qr-reader__dashboard button {
+  padding: 10px 20px !important;
+  background: linear-gradient(135deg, #DBA9A9 0%, #B87C7C 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  font-weight: 500 !important;
+}
