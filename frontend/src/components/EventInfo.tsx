@@ -170,9 +170,13 @@ export default function EventInfo() {
               <span className="text-gray-300">HOTEL</span>
             </h3>
             
-            <p className="text-sm text-[#D86B6B] font-bold tracking-widest uppercase mb-2">
-              Gading Serpong
-            </p>
+            <div className="flex items-center gap-1.5 text-sm text-[#D86B6B] font-bold tracking-widest uppercase mb-2">
+              <svg className="w-4 h-4 text-[#D86B6B] shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Gading Serpong</span>
+            </div>
             <p className="text-xs md:text-sm text-gray-500 font-medium max-w-sm mb-10 leading-relaxed">
               Jl. Gading Serpong Boulevard Barat Blok S No. 6-7, Tangerang, Banten 15810
             </p>
@@ -182,10 +186,14 @@ export default function EventInfo() {
                 href="https://maps.google.com/?q=Episode+Hotel+Gading+Serpong"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-4 bg-[#111111] text-white font-bold text-[10px] tracking-widest uppercase hover:bg-[#D86B6B] transition-colors"
+                className="group inline-flex items-center gap-2.5 px-6 py-4 bg-[#111111] text-white font-bold text-[10px] tracking-widest uppercase hover:bg-[#D86B6B] transition-colors rounded-xl shadow-md"
               >
+                <svg className="w-4 h-4 text-[#D86B6B] group-hover:text-white transition-colors" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
                 <span>Buka Google Maps</span>
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 opacity-70" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
@@ -193,17 +201,17 @@ export default function EventInfo() {
           </div>
 
           {/* Embedded Map Right */}
-          <div className="w-full lg:w-1/2 h-[300px] lg:h-auto min-h-[350px] border-t lg:border-t-0 lg:border-l border-gray-100 bg-gray-50 relative">
+          <div className="w-full lg:w-1/2 h-[300px] lg:h-auto min-h-[350px] border-t lg:border-t-0 lg:border-l border-gray-100 bg-gray-50 relative overflow-hidden">
             <iframe
               title="Lokasi Episode Hotel Gading Serpong"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.195669389242!2d106.62677937587848!3d-6.237976861081545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fbdf61864197%3A0xc3b8364cae8cf596!2sEpisode%20Gading%20Serpong!5e0!3m2!1sen!2sid!4v1710000000000!5m2!1sen!2sid"
+              src="https://maps.google.com/maps?q=-6.2379768,106.6267793&hl=id&z=16&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="absolute inset-0 w-full h-full grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+              className="absolute inset-0 w-full h-full"
             />
           </div>
         </motion.div>

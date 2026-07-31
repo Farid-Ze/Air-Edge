@@ -200,7 +200,7 @@ export default function RegistrationForm() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full inline-flex items-center justify-center gap-3 py-4 rounded-xl bg-[#111111] hover:bg-black text-white font-bold text-sm tracking-wide shadow-lg overflow-hidden transition-all duration-300 active:scale-[0.98] disabled:opacity-60 mt-4"
+              className="group relative w-full inline-flex items-center justify-center gap-3 py-4 rounded-xl bg-gradient-to-r from-[#D86B6B] to-[#B85C5C] hover:from-[#c55a5a] hover:to-[#a74c4c] text-white font-bold text-sm tracking-wide shadow-[0_10px_25px_rgba(216,107,107,0.35)] overflow-hidden transition-all duration-300 active:scale-[0.98] disabled:opacity-60 mt-4"
             >
               {isLoading ? (
                 <span className="relative z-10 flex items-center gap-3">
