@@ -76,12 +76,11 @@ export default function SpeakerSection() {
                     src={speaker.image}
                     alt={speaker.name}
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className={`${speaker.imageStyle || "object-contain object-bottom"} drop-shadow-[0_10px_20px_rgba(0,0,0,0.15)] transition-transform duration-700 group-hover:scale-[1.03] group-hover:-translate-y-2`}
                   />
                 </div>
               </div>
-
-              {/* Bottom Content Section */}
               <div className="relative flex flex-col flex-1 p-8 lg:p-10 bg-white">
                 <div className="mb-6">
                   <span className="inline-block px-3 py-1 rounded-md bg-[#111111] text-white text-[10px] font-bold tracking-widest uppercase mb-5 transition-colors duration-300 group-hover:bg-[#D86B6B]">

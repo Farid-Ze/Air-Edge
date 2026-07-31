@@ -23,7 +23,7 @@ class AttendanceController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
-            'ticket_id' => 'required|uuid',
+            'ticket_id' => 'required|string',
         ]);
 
         // Cari peserta berdasarkan ticket_id
@@ -46,7 +46,7 @@ class AttendanceController extends Controller
                     'name' => $participant->name,
                     'email' => $participant->email,
                     'institution' => $participant->institution,
-                    'attended_at' => $participant->attended_at->format('d M Y, H:i'),
+                    'attended_at' => $participant->attended_at ? $participant->attended_at->format('d M Y, H:i') : now()->format('d M Y, H:i'),
                 ],
             ], 409);
         }
@@ -61,7 +61,7 @@ class AttendanceController extends Controller
                 'name' => $participant->name,
                 'email' => $participant->email,
                 'institution' => $participant->institution,
-                'attended_at' => $participant->attended_at->format('d M Y, H:i'),
+                'attended_at' => $participant->attended_at ? $participant->attended_at->format('d M Y, H:i') : now()->format('d M Y, H:i'),
             ],
         ]);
     }

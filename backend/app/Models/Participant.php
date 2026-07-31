@@ -18,6 +18,8 @@ class Participant extends Model
         'email',
         'institution',
         'ticket_id',
+        'is_attended',
+        'attended_at',
     ];
 
     /**
@@ -47,10 +49,9 @@ class Participant extends Model
      */
     public function markAsAttended(): self
     {
-        $this->update([
-            'is_attended' => true,
-            'attended_at' => now(),
-        ]);
+        $this->is_attended = true;
+        $this->attended_at = now();
+        $this->save();
 
         return $this;
     }
