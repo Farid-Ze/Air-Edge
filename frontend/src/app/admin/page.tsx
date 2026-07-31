@@ -231,28 +231,34 @@ export default function AdminDashboard() {
       </header>
 
       {/* Main Content Area */}
-      <main className="relative z-10 flex-1 px-4 md:px-8 py-10 max-w-6xl w-full mx-auto">
+      <main className="relative z-10 flex-1 px-4 md:px-8 py-8 md:py-10 max-w-[1600px] w-full mx-auto">
         
         {/* Title & Action Buttons Row */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-8 pb-6 border-b border-gray-200/60">
           <div>
-            <span className="inline-block px-3 py-1 bg-[#111111] text-white text-[10px] font-bold tracking-[0.2em] uppercase rounded-md mb-2">
-              ADMIN DASHBOARD
-            </span>
-            <h1 className="text-3xl md:text-4xl font-black text-[#111111] uppercase tracking-tight">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="inline-block px-3 py-1 bg-[#111111] text-white text-[10px] font-bold tracking-[0.2em] uppercase rounded-md">
+                ADMIN DASHBOARD
+              </span>
+              <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-widest hidden sm:inline">
+                AIR &amp; EDGE 2026
+              </span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#111111] uppercase tracking-tight">
               DATA PESERTA &amp; KEHADIRAN
             </h1>
-            <p className="text-xs text-gray-500 font-medium tracking-wider uppercase mt-1">
-              AIR <span className="text-[#D86B6B]">&amp;</span> EDGE 2026 • MANAJEMEN EVENT
+            <p className="text-[11px] sm:text-xs text-gray-500 font-medium tracking-wider uppercase mt-1">
+              SISTEM MANAJEMEN EVENT &amp; REGISTRASI RESMI ALFA BEAUTY
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          {/* Action Buttons: Neat Single-Row Alignment */}
+          <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap shrink-0">
             <button
               onClick={openAddModal}
-              className="inline-flex items-center gap-2 px-5 py-3 bg-[#111111] hover:bg-black text-white text-xs font-bold uppercase tracking-widest rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer"
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-2.5 bg-[#111111] hover:bg-black text-white text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer whitespace-nowrap"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
               Tambah Peserta
@@ -261,9 +267,9 @@ export default function AdminDashboard() {
             <button
               onClick={exportToCSV}
               disabled={participants.length === 0}
-              className="inline-flex items-center gap-2 px-5 py-3 border border-gray-200/90 bg-white hover:border-[#111111] text-[#111111] text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-2xs disabled:opacity-40 cursor-pointer"
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-2.5 border border-gray-200/90 bg-white hover:border-[#111111] text-[#111111] text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all shadow-2xs disabled:opacity-40 cursor-pointer whitespace-nowrap"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
               Export CSV
@@ -271,9 +277,9 @@ export default function AdminDashboard() {
 
             <Link
               href="/admin/scanner"
-              className="inline-flex items-center gap-2 px-5 py-3 bg-white border border-gray-200/90 hover:border-[#111111] text-[#111111] text-xs font-bold uppercase tracking-widest rounded-xl shadow-2xs transition-all active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-2.5 bg-white border border-gray-200/90 hover:border-[#111111] text-[#111111] text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-2xs transition-all active:scale-[0.98] whitespace-nowrap"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 6.75h.008v.008H6.75V6.75zM6.75 16.5h.008v.008H6.75V16.5zM16.5 6.75h.008v.008H16.5V6.75zM13.5 13.5h3v3h-3v-3zM16.5 16.5h3v3h-3v-3z" />
               </svg>
@@ -282,7 +288,7 @@ export default function AdminDashboard() {
 
             <Link
               href="/"
-              className="inline-flex items-center justify-center px-4 py-3 border border-gray-200 bg-white hover:border-[#111111] text-[#111111] text-xs font-bold uppercase tracking-widest rounded-xl transition-all"
+              className="inline-flex items-center justify-center px-3.5 py-2.5 sm:px-4 sm:py-2.5 border border-gray-200 bg-white hover:border-[#111111] text-[#111111] text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap"
             >
               ← Beranda
             </Link>
