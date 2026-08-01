@@ -8,28 +8,28 @@ const partners = [
     logo: "/images/logo-alfa-beauty.png",
     width: 300,
     height: 100,
-    maxHeight: "76px",
+    sizeClass: "h-7 sm:h-11 md:h-15",
   },
   {
     name: "EPOCH",
     logo: "/images/logo-epoch.png",
     width: 160,
     height: 60,
-    maxHeight: "45px",
+    sizeClass: "h-5 sm:h-8 md:h-10",
   },
   {
     name: "Hikari",
     logo: "/images/logo-hikari.jpeg",
     width: 80,
     height: 80,
-    maxHeight: "55px",
+    sizeClass: "h-7 sm:h-10 md:h-12 rounded-xs shadow-2xs",
   },
   {
     name: "Gamma+",
     logo: "/images/logo-gamma.png",
     width: 180,
     height: 50,
-    maxHeight: "42px",
+    sizeClass: "h-3.5 sm:h-5 md:h-6.5",
   },
 ];
 
@@ -44,23 +44,24 @@ export default function PartnersFooter() {
               Official Partnerships
             </span>
             <h3 className="text-2xl md:text-3xl font-black text-[#111111] uppercase tracking-tight">
-              Sponsors & Brand Partners
+              Sponsors &amp; Brand Partners
             </h3>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 max-w-5xl mx-auto">
+          {/* Optically Balanced Pure Horizontal Alignment of Logos */}
+          <div className="flex flex-row items-center justify-center gap-4 sm:gap-10 md:gap-16 max-w-5xl mx-auto py-2">
             {partners.map((partner) => (
               <div
                 key={partner.name}
-                className="group relative flex items-center justify-center p-2 hover:-translate-y-1 transition-transform duration-300"
+                className="group relative flex items-center justify-center p-1 hover:-translate-y-1 transition-transform duration-300 shrink-0"
               >
                 <Image
                   src={partner.logo}
                   alt={partner.name}
                   width={partner.width}
                   height={partner.height}
-                  style={{ width: "auto", maxHeight: partner.maxHeight }}
-                  className="object-contain transition-transform duration-300 group-hover:scale-105"
+                  style={{ width: "auto" }}
+                  className={`w-auto object-contain transition-transform duration-300 group-hover:scale-105 ${partner.sizeClass}`}
                 />
               </div>
             ))}

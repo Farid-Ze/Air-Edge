@@ -240,24 +240,23 @@ export default function AdminDashboard() {
           <span className="font-bold text-[11px] md:text-xs">@alfabeauty_id</span>
         </div>
 
-        {/* Logo */}
-        <div className="w-1/3 flex justify-center">
+        {/* Logo (Centered on Mobile & Desktop) */}
+        <div className="w-full md:w-1/3 flex justify-center py-1">
           <Link href="/">
             <Image
               src="/images/logo-alfa-beauty.png"
               alt="Alfa Beauty"
-              width={240}
-              height={80}
-              style={{ width: "auto", height: "auto" }}
-              className="h-10 md:h-16 w-auto object-contain drop-shadow-sm hover:opacity-90 transition-opacity"
+              width={300}
+              height={100}
+              className="h-12 sm:h-14 md:h-20 lg:h-24 w-auto object-contain drop-shadow-sm hover:opacity-90 transition-opacity"
               priority
             />
           </Link>
         </div>
 
-        {/* Tagline */}
-        <div className="w-1/3 text-right">
-          <span className="hidden md:inline-block italic text-gray-500 font-medium text-[10px] md:text-[11px]">
+        {/* Tagline (Desktop Only) */}
+        <div className="hidden md:block w-1/3 text-right">
+          <span className="italic text-gray-500 font-medium text-[10px] md:text-[11px]">
             Inspiration. Collaboration. Elevation.
           </span>
         </div>
@@ -285,80 +284,80 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          {/* Action Buttons: Neat Single-Row Alignment */}
-          <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap shrink-0">
+          {/* Action Buttons: Pure Single-Row Horizontal Alignment across all screens */}
+          <div className="flex flex-row items-center gap-1.5 sm:gap-2.5 overflow-x-auto pb-1.5 w-full sm:w-auto shrink-0 no-scrollbar">
             <button
               onClick={openAddModal}
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-2.5 bg-[#111111] hover:bg-black text-white text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 bg-[#111111] hover:bg-black text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer whitespace-nowrap shrink-0"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
-              Tambah Peserta
+              <span>+ Tambah Peserta</span>
             </button>
 
             <button
               onClick={exportToCSV}
               disabled={participants.length === 0}
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-2.5 border border-gray-200/90 bg-white hover:border-[#111111] text-[#111111] text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all shadow-2xs disabled:opacity-40 cursor-pointer whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-200/90 bg-white hover:border-[#111111] text-[#111111] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all shadow-2xs disabled:opacity-40 cursor-pointer whitespace-nowrap shrink-0"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Export CSV
+              <span>Export CSV</span>
             </button>
 
             <Link
               href="/admin/scanner"
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-2.5 bg-white border border-gray-200/90 hover:border-[#111111] text-[#111111] text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-2xs transition-all active:scale-[0.98] whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 bg-white border border-gray-200/90 hover:border-[#111111] text-[#111111] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-2xs transition-all active:scale-[0.98] whitespace-nowrap shrink-0"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 6.75h.008v.008H6.75V6.75zM6.75 16.5h.008v.008H6.75V16.5zM16.5 6.75h.008v.008H16.5V6.75zM13.5 13.5h3v3h-3v-3zM16.5 16.5h3v3h-3v-3z" />
               </svg>
-              Scanner
+              <span>Scanner</span>
             </Link>
 
             <Link
               href="/"
-              className="inline-flex items-center justify-center px-3.5 py-2.5 sm:px-4 sm:py-2.5 border border-gray-200 bg-white hover:border-[#111111] text-[#111111] text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap"
+              className="inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-200 bg-white hover:border-[#111111] text-[#111111] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shrink-0"
             >
-              ← Beranda
+              <span>← Beranda</span>
             </Link>
           </div>
         </div>
 
-        {/* Editorial Stat Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-          <div className="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+        {/* Editorial Stat Cards Grid: 100% Horizontal Row on Mobile (3 Columns) */}
+        <div className="grid grid-cols-3 gap-2.5 sm:gap-5 mb-8">
+          <div className="bg-white rounded-2xl p-3 sm:p-6 border border-gray-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+            <p className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-wider sm:tracking-widest">
               TOTAL PENDAFTAR
             </p>
-            <p className="text-3xl md:text-4xl font-black text-[#111111] mt-2">
+            <p className="text-xl sm:text-3xl md:text-4xl font-black text-[#111111] mt-1 sm:mt-2">
               {stats.total_registered}
             </p>
-            <p className="text-[11px] text-gray-400 mt-1 font-medium">Peserta terkonfirmasi</p>
+            <p className="text-[9px] sm:text-[11px] text-gray-400 mt-1 font-medium hidden sm:block">Peserta terkonfirmasi</p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+          <div className="bg-white rounded-2xl p-3 sm:p-6 border border-gray-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+            <p className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-wider sm:tracking-widest">
               SUDAH HADIR
             </p>
-            <p className="text-3xl md:text-4xl font-black text-emerald-600 mt-2">
+            <p className="text-xl sm:text-3xl md:text-4xl font-black text-emerald-600 mt-1 sm:mt-2">
               {stats.total_attended}
             </p>
-            <p className="text-[11px] text-gray-400 mt-1 font-medium">Sudah scan wristband</p>
+            <p className="text-[9px] sm:text-[11px] text-gray-400 mt-1 font-medium hidden sm:block">Sudah scan wristband</p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-              TINGKAT KEHADIRAN
+          <div className="bg-white rounded-2xl p-3 sm:p-6 border border-gray-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+            <p className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-wider sm:tracking-widest">
+              TINGKAT HADIR
             </p>
-            <p className="text-3xl md:text-4xl font-black text-[#D86B6B] mt-2">
+            <p className="text-xl sm:text-3xl md:text-4xl font-black text-[#D86B6B] mt-1 sm:mt-2">
               {stats.attendance_rate}%
             </p>
             {/* Sleek Progress Bar */}
-            <div className="mt-3 h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div className="mt-2 sm:mt-3 h-1.5 sm:h-2 bg-gray-100 rounded-full overflow-hidden">
               <div
                 className="h-full bg-[#D86B6B] rounded-full transition-all duration-700"
                 style={{ width: `${stats.attendance_rate}%` }}
