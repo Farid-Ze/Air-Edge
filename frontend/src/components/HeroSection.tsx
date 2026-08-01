@@ -67,9 +67,16 @@ export default function HeroSection() {
           </a>
         </div>
 
-        {/* Logo (Centered on Mobile & Desktop) */}
+        {/* Logo (Centered on Mobile & Desktop - +100% Size) */}
         <div className="w-full md:w-1/3 flex justify-center py-1">
-          <Image src="/images/logo-alfa-beauty.png" alt="Alfa Beauty" width={300} height={100} className="h-12 sm:h-14 md:h-20 lg:h-24 w-auto object-contain drop-shadow-sm" priority />
+          <Image 
+            src="/images/logo-alfa-beauty.png" 
+            alt="Alfa Beauty" 
+            width={600} 
+            height={200} 
+            className="h-20 sm:h-24 md:h-36 lg:h-44 w-auto object-contain drop-shadow-md hover:scale-105 transition-all duration-300" 
+            priority 
+          />
         </div>
 
         {/* Tagline (Desktop Only) */}
@@ -126,20 +133,21 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Side Models (768px Tablet: Hair top lowered to be parallel with "EDGE" + Bottom anchored behind black wave) */}
-        <div className="absolute inset-x-0 bottom-0 top-[6%] sm:top-[4%] md:top-[24%] lg:top-[3%] xl:top-[4%] pointer-events-none z-10 flex justify-between items-end px-0 sm:px-4 md:px-8 max-w-[1600px] mx-auto overflow-hidden">
+        {/* Side Models (Natural Aspect Ratio Locking - Zero Stretching, Smooth Vignette Bottom Mask) */}
+        <div className="absolute inset-x-0 bottom-0 pointer-events-none z-10 flex justify-between items-end px-0 sm:px-4 md:px-8 max-w-[1600px] mx-auto overflow-hidden h-[85%] sm:h-[90%] md:h-[95%] max-h-[750px]">
           {/* Left Model (Peach Hair) */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="relative w-[36%] sm:w-[30%] md:w-[26%] lg:w-[23%] xl:w-[22%] h-[96%] sm:h-full md:h-full lg:h-full max-h-[780px] left-[-10%] sm:left-[-3%] md:left-[1%] lg:left-[4%]"
+            className="relative w-[38%] sm:w-[32%] md:w-[27%] lg:w-[24%] xl:w-[22%] h-full max-h-[750px] left-[-8%] sm:left-[-2%] md:left-[1%] lg:left-[4%] [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]"
           >
             <Image 
               src="/images/hero-model-right-clean.png" 
               alt="Model Left" 
               fill 
-              className="object-contain object-bottom drop-shadow-[0_20px_30px_rgba(0,0,0,0.4)]" 
+              sizes="(max-width: 768px) 40vw, 25vw"
+              className="object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.35)]" 
               priority 
             />
           </motion.div>
@@ -149,13 +157,14 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="relative w-[36%] sm:w-[30%] md:w-[26%] lg:w-[23%] xl:w-[22%] h-[96%] sm:h-full md:h-full lg:h-full max-h-[780px] right-[-10%] sm:right-[-3%] md:right-[1%] lg:right-[4%]"
+            className="relative w-[38%] sm:w-[32%] md:w-[27%] lg:w-[24%] xl:w-[22%] h-full max-h-[750px] right-[-8%] sm:right-[-2%] md:right-[1%] lg:right-[4%] [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]"
           >
             <Image 
               src="/images/hero-model-left.png" 
               alt="Model Right" 
               fill 
-              className="object-contain object-bottom drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)] opacity-95" 
+              sizes="(max-width: 768px) 40vw, 25vw"
+              className="object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.3)] opacity-95" 
               priority 
             />
           </motion.div>
@@ -163,7 +172,7 @@ export default function HeroSection() {
 
       </div>
 
-      {/* Bottom Guest Speakers & Black Wave Layer (Consistently Clipping Bottom of Hero Canvas Stage) */}
+      {/* Bottom Guest Speakers & Black Wave Layer (Integrated Ambient Stage Lighting & Vignette Blending) */}
       <div className="relative z-30 w-full flex flex-col items-center justify-end -mt-12 sm:-mt-16 md:-mt-24 lg:-mt-32">
         
         {/* Black Wave Background */}
@@ -175,9 +184,12 @@ export default function HeroSection() {
             </svg>
           </div>
 
-          {/* Guest Speakers Image (Elevated Above Black Wave Curve into White Canvas) */}
-          <div className="absolute -top-[95px] sm:-top-[140px] md:-top-[200px] lg:-top-[240px] left-1/2 -translate-x-1/2 w-[72%] sm:w-[62%] md:w-[580px] lg:w-[720px] xl:w-[800px] h-[260px] sm:h-[350px] md:h-[450px] lg:h-[500px] pointer-events-auto z-20 hover:scale-105 transition-transform duration-700">
-            <Image src="/images/speakers-duo.png" alt="Guest Speakers" fill className="object-contain object-bottom drop-shadow-[0_15px_40px_rgba(0,0,0,0.6)]" priority />
+          {/* Ambient Spotlight Glow Behind Duo Speakers */}
+          <div className="absolute -top-[120px] sm:-top-[180px] md:-top-[260px] left-1/2 -translate-x-1/2 w-[85%] max-w-[900px] h-[300px] sm:h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(235,153,153,0.3)_0%,rgba(216,107,107,0.1)_45%,transparent_70%)] blur-3xl pointer-events-none z-10" />
+
+          {/* Guest Speakers Image (Seamless Vignette Masking + Deep Shadow Integration) */}
+          <div className="absolute -top-[95px] sm:-top-[140px] md:-top-[200px] lg:-top-[240px] left-1/2 -translate-x-1/2 w-[72%] sm:w-[62%] md:w-[580px] lg:w-[720px] xl:w-[800px] h-[260px] sm:h-[350px] md:h-[450px] lg:h-[500px] pointer-events-auto z-20 hover:scale-[1.03] transition-transform duration-700 [mask-image:linear-gradient(to_bottom,black_80%,transparent_98%)]">
+            <Image src="/images/speakers-duo.png" alt="Guest Speakers" fill className="object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)]" priority />
           </div>
 
           {/* Speaker Info Layout */}

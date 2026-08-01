@@ -4,12 +4,12 @@ import Image from "next/image";
 
 const partners = [
   {
-    name: "Alfa Beauty",
-    logo: "/images/logo-alfa-beauty.png",
-    width: 300,
-    height: 100,
-    // Alfa Beauty canvas has internal padding: scale-125 compensates so text height matches EPOCH
-    sizeClass: "h-9 sm:h-14 md:h-18 lg:h-22 scale-125 origin-center",
+    name: "Alfaparf Milano",
+    logo: "/images/logo-alfaparf.png",
+    width: 280,
+    height: 90,
+    // Alfaparf Milano clean typography logo
+    sizeClass: "h-6 sm:h-10 md:h-13 lg:h-16",
   },
   {
     name: "EPOCH",
