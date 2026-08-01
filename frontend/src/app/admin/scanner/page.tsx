@@ -228,8 +228,8 @@ export default function ScannerPage() {
 
       {/* Signature Brand Header (Exact match with main site header) */}
       <header className="relative z-50 flex items-center justify-between px-6 md:px-12 pt-2 md:pt-3 pb-2 w-full max-w-[1600px] mx-auto text-xs font-semibold tracking-wider text-black">
-        {/* Socials & Contact CTAs */}
-        <div className="flex items-center gap-3 w-1/3">
+        {/* Socials & Contact CTAs (Desktop Only) */}
+        <div className="hidden md:flex items-center gap-3 w-1/3">
           <div className="flex items-center gap-2">
             {/* WhatsApp CTA Icon */}
             <a
