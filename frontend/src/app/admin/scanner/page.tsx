@@ -125,12 +125,34 @@ export default function ScannerPage() {
       const scanner = new Html5Qrcode("qr-reader");
       html5QrCodeRef.current = scanner;
 
+      // 1. Query available cameras to find rear/environment camera for Android
+      let cameraConstraint: any = { facingMode: "environment" };
+      try {
+        const cameras = await Html5Qrcode.getCameras();
+        if (cameras && cameras.length > 0) {
+          // Prefer back camera by label matching or pick last camera (usually rear on Android)
+          const backCamera = cameras.find((cam) =>
+            /back|rear|environment|belakang|belakang/i.test(cam.label)
+          );
+          if (backCamera) {
+            cameraConstraint = backCamera.id;
+          } else if (cameras.length > 1) {
+            cameraConstraint = cameras[cameras.length - 1].id;
+          }
+        }
+      } catch {
+        // Fallback to facingMode constraint if getCameras fails
+      }
+
       await scanner.start(
-        { facingMode: "environment" },
+        cameraConstraint,
         {
-          fps: 10,
-          qrbox: { width: 250, height: 250 },
-          aspectRatio: 1,
+          fps: 15,
+          qrbox: (viewfinderWidth: number, viewfinderHeight: number) => {
+            const minEdge = Math.min(viewfinderWidth, viewfinderHeight);
+            const boxSize = Math.floor(minEdge * 0.75);
+            return { width: boxSize, height: boxSize };
+          },
         },
         (decodedText: string) => {
           handleScan(decodedText);
@@ -303,6 +325,26 @@ export default function ScannerPage() {
 
         {/* Scanner Enclosure Card */}
         <div className="bg-white rounded-2xl border border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.05)] p-6 mb-6">
+          <style jsx global>{`
+            #qr-reader {
+              border: none !important;
+              background: #111111 !important;
+            }
+            #qr-reader video {
+              object-fit: cover !important;
+              width: 100% !important;
+              height: 100% !important;
+              max-height: 420px !important;
+              border-radius: 1rem !important;
+            }
+            #qr-reader__scan_region {
+              background: transparent !important;
+            }
+            #qr-reader img[alt="Info icon"],
+            #qr-reader__dashboard {
+              display: none !important;
+            }
+          `}</style>
           <div
             ref={scannerRef}
             id="qr-reader"
