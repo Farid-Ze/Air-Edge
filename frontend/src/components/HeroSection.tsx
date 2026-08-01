@@ -147,7 +147,7 @@ export default function HeroSection() {
               alt="Model Left" 
               fill 
               sizes="(max-width: 768px) 40vw, 25vw"
-              className="object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.35)]" 
+              className="object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.08)]" 
               priority 
             />
           </motion.div>
@@ -164,7 +164,7 @@ export default function HeroSection() {
               alt="Model Right" 
               fill 
               sizes="(max-width: 768px) 40vw, 25vw"
-              className="object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.3)] opacity-95" 
+              className="object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.08)] opacity-95" 
               priority 
             />
           </motion.div>
@@ -185,11 +185,11 @@ export default function HeroSection() {
           </div>
 
           {/* Ambient Spotlight Glow Behind Duo Speakers */}
-          <div className="absolute -top-[120px] sm:-top-[180px] md:-top-[260px] left-1/2 -translate-x-1/2 w-[85%] max-w-[900px] h-[300px] sm:h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(235,153,153,0.3)_0%,rgba(216,107,107,0.1)_45%,transparent_70%)] blur-3xl pointer-events-none z-10" />
+          <div className="absolute -top-[120px] sm:-top-[180px] md:-top-[260px] left-1/2 -translate-x-1/2 w-[85%] max-w-[900px] h-[300px] sm:h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(235,153,153,0.2)_0%,rgba(216,107,107,0.05)_45%,transparent_70%)] blur-3xl pointer-events-none z-10" />
 
-          {/* Guest Speakers Image (Seamless Vignette Masking + Deep Shadow Integration) */}
-          <div className="absolute -top-[95px] sm:-top-[140px] md:-top-[200px] lg:-top-[240px] left-1/2 -translate-x-1/2 w-[72%] sm:w-[62%] md:w-[580px] lg:w-[720px] xl:w-[800px] h-[260px] sm:h-[350px] md:h-[450px] lg:h-[500px] pointer-events-auto z-20 hover:scale-[1.03] transition-transform duration-700 [mask-image:linear-gradient(to_bottom,black_80%,transparent_98%)]">
-            <Image src="/images/speakers-duo.png" alt="Guest Speakers" fill className="object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)]" priority />
+          {/* Guest Speakers Image (Clean Soft Ambient Shadow & Seamless Masking) */}
+          <div className="absolute -top-[95px] sm:-top-[140px] md:-top-[200px] lg:-top-[240px] left-1/2 -translate-x-1/2 w-[72%] sm:w-[62%] md:w-[580px] lg:w-[720px] xl:w-[800px] h-[260px] sm:h-[350px] md:h-[450px] lg:h-[500px] pointer-events-auto z-20 hover:scale-[1.02] transition-transform duration-700 [mask-image:linear-gradient(to_bottom,black_85%,transparent_98%)]">
+            <Image src="/images/speakers-duo.png" alt="Guest Speakers" fill className="object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)]" priority />
           </div>
 
           {/* Speaker Info Layout */}
