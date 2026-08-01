@@ -195,12 +195,10 @@ export default function AdminDashboard() {
         }}
       >
         <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[size:40px_40px] md:bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_30%,#000_40%,transparent_100%)]" />
-      </div>
-
-      {/* Signature Brand Header (Exact match with main site header) */}
+      </div>      {/* Signature Brand Header (Exact 1:1 match with main site header across all responsive breakpoints) */}
       <header className="relative z-50 flex items-center justify-between px-6 md:px-12 pt-2 md:pt-3 pb-2 w-full max-w-[1600px] mx-auto text-xs font-semibold tracking-wider text-black">
-        {/* Socials & Contact CTAs */}
-        <div className="flex items-center gap-3 w-1/3">
+        {/* Socials & Contact CTAs (Desktop Only) */}
+        <div className="hidden md:flex items-center gap-3 w-1/3">
           <div className="flex items-center gap-2">
             {/* WhatsApp CTA Icon */}
             <a
@@ -237,27 +235,33 @@ export default function AdminDashboard() {
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
             </a>
           </div>
-          <span className="font-bold text-[11px] md:text-xs">@alfabeauty_id</span>
+          <a
+            href="https://instagram.com/alfabeauty_id"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-xs hover:text-[#D86B6B] transition-colors"
+          >
+            @alfabeauty_id
+          </a>
         </div>
 
-        {/* Logo */}
-        <div className="w-1/3 flex justify-center">
+        {/* Logo (Centered on Mobile & Desktop) */}
+        <div className="w-full md:w-1/3 flex justify-center py-1">
           <Link href="/">
             <Image
               src="/images/logo-alfa-beauty.png"
               alt="Alfa Beauty"
-              width={240}
-              height={80}
-              style={{ width: "auto", height: "auto" }}
-              className="h-10 md:h-16 w-auto object-contain drop-shadow-sm hover:opacity-90 transition-opacity"
+              width={300}
+              height={100}
+              className="h-12 sm:h-14 md:h-20 lg:h-24 w-auto object-contain drop-shadow-sm hover:opacity-90 transition-opacity"
               priority
             />
           </Link>
         </div>
 
-        {/* Tagline */}
-        <div className="w-1/3 text-right">
-          <span className="hidden md:inline-block italic text-gray-500 font-medium text-[10px] md:text-[11px]">
+        {/* Tagline (Desktop Only) */}
+        <div className="hidden md:block w-1/3 text-right">
+          <span className="italic text-gray-500 font-medium text-[10px] md:text-[11px]">
             Inspiration. Collaboration. Elevation.
           </span>
         </div>
@@ -285,45 +289,45 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          {/* Action Buttons: Neat Single-Row Alignment */}
-          <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap sm:flex-nowrap shrink-0">
+          {/* Action Buttons: 100% Sejajar (2x2 Grid on Mobile, Flex Row on Desktop) */}
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 sm:gap-2.5 w-full sm:w-auto shrink-0">
             <button
               onClick={openAddModal}
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-2.5 bg-[#111111] hover:bg-black text-white text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 sm:px-4 sm:py-2.5 bg-[#111111] hover:bg-black text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer whitespace-nowrap w-full text-center"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
-              Tambah Peserta
+              <span>+ Tambah Peserta</span>
             </button>
 
             <button
               onClick={exportToCSV}
               disabled={participants.length === 0}
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-2.5 border border-gray-200/90 bg-white hover:border-[#111111] text-[#111111] text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all shadow-2xs disabled:opacity-40 cursor-pointer whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 sm:px-4 sm:py-2.5 border border-gray-200/90 bg-white hover:border-[#111111] text-[#111111] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all shadow-2xs disabled:opacity-40 cursor-pointer whitespace-nowrap w-full text-center"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Export CSV
+              <span>Export CSV</span>
             </button>
 
             <Link
               href="/admin/scanner"
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-2.5 bg-white border border-gray-200/90 hover:border-[#111111] text-[#111111] text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-2xs transition-all active:scale-[0.98] whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 sm:px-4 sm:py-2.5 bg-white border border-gray-200/90 hover:border-[#111111] text-[#111111] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-2xs transition-all active:scale-[0.98] whitespace-nowrap w-full text-center"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 6.75h.008v.008H6.75V6.75zM6.75 16.5h.008v.008H6.75V16.5zM16.5 6.75h.008v.008H16.5V6.75zM13.5 13.5h3v3h-3v-3zM16.5 16.5h3v3h-3v-3z" />
               </svg>
-              Scanner
+              <span>Scanner</span>
             </Link>
 
             <Link
               href="/"
-              className="inline-flex items-center justify-center px-3.5 py-2.5 sm:px-4 sm:py-2.5 border border-gray-200 bg-white hover:border-[#111111] text-[#111111] text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap"
+              className="inline-flex items-center justify-center px-3 py-2.5 sm:px-4 sm:py-2.5 border border-gray-200 bg-white hover:border-[#111111] text-[#111111] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap w-full text-center"
             >
-              ← Beranda
+              <span>← Beranda</span>
             </Link>
           </div>
         </div>
