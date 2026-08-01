@@ -8,28 +8,28 @@ const partners = [
     logo: "/images/logo-alfa-beauty.png",
     width: 300,
     height: 100,
-    sizeClass: "h-7 sm:h-11 md:h-15",
+    sizeClass: "h-6 sm:h-12 md:h-16 lg:h-20 xl:h-24",
   },
   {
     name: "EPOCH",
     logo: "/images/logo-epoch.png",
     width: 160,
     height: 60,
-    sizeClass: "h-5 sm:h-8 md:h-10",
+    sizeClass: "h-5 sm:h-9 md:h-12 lg:h-14 xl:h-16",
   },
   {
     name: "Hikari",
     logo: "/images/logo-hikari.jpeg",
     width: 80,
     height: 80,
-    sizeClass: "h-7 sm:h-10 md:h-12 rounded-xs shadow-2xs",
+    sizeClass: "h-6 sm:h-12 md:h-16 lg:h-20 xl:h-22 rounded-xs sm:rounded-md shadow-2xs",
   },
   {
     name: "Gamma+",
     logo: "/images/logo-gamma.png",
     width: 180,
     height: 50,
-    sizeClass: "h-3.5 sm:h-5 md:h-6.5",
+    sizeClass: "h-3.5 sm:h-6 md:h-8 lg:h-10 xl:h-12",
   },
 ];
 
@@ -48,8 +48,8 @@ export default function PartnersFooter() {
             </h3>
           </div>
 
-          {/* Optically Balanced Pure Horizontal Alignment of Logos */}
-          <div className="flex flex-row items-center justify-center gap-4 sm:gap-10 md:gap-16 max-w-5xl mx-auto py-2">
+          {/* Optically Balanced Pure Horizontal Alignment of Logos across Mobile, Tablet, and Desktop */}
+          <div className="flex flex-row items-center justify-center gap-4 sm:gap-10 md:gap-16 lg:gap-20 max-w-6xl mx-auto py-4">
             {partners.map((partner) => (
               <div
                 key={partner.name}
