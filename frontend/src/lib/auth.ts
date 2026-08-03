@@ -12,8 +12,8 @@ export interface AdminCredentials {
  */
 export function getAdminCredentials(): AdminCredentials {
   return {
-    username: process.env.NEXT_PUBLIC_ADMIN_USERNAME || "admin",
-    pass: process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "alfabeauty2026",
+    username: process.env.ADMIN_USERNAME || process.env.NEXT_PUBLIC_ADMIN_USERNAME || "admin",
+    pass: process.env.ADMIN_PASSWORD || process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "alfabeauty2026",
   };
 }
 

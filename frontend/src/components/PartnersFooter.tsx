@@ -9,7 +9,7 @@ const partners = [
     width: 280,
     height: 90,
     // Alfaparf Milano clean typography logo
-    sizeClass: "h-6 sm:h-10 md:h-13 lg:h-16",
+    sizeClass: "h-9 sm:h-10 md:h-13 lg:h-16",
   },
   {
     name: "EPOCH",
@@ -17,7 +17,7 @@ const partners = [
     width: 160,
     height: 60,
     // EPOCH text logo: reference baseline height
-    sizeClass: "h-6 sm:h-9 md:h-12 lg:h-14",
+    sizeClass: "h-8 sm:h-9 md:h-12 lg:h-14",
   },
   {
     name: "Hikari",
@@ -25,7 +25,7 @@ const partners = [
     width: 80,
     height: 80,
     // Hikari is a solid square block: tuned so it doesn't overpower text logos
-    sizeClass: "h-7 sm:h-10 md:h-13 lg:h-15 rounded-md shadow-2xs",
+    sizeClass: "h-11 sm:h-10 md:h-13 lg:h-15 rounded-md shadow-2xs",
   },
   {
     name: "Gamma+",
@@ -33,7 +33,7 @@ const partners = [
     width: 180,
     height: 50,
     // Gamma+ is ultra wide: tuned so its lettering matches EPOCH font height
-    sizeClass: "h-4 sm:h-6 md:h-7.5 lg:h-9",
+    sizeClass: "h-6 sm:h-6 md:h-7.5 lg:h-9",
   },
 ];
 
@@ -53,7 +53,7 @@ export default function PartnersFooter() {
           </div>
 
           {/* Optically Balanced Pure Horizontal Alignment of Logos across Mobile, Tablet, and Desktop */}
-          <div className="flex flex-row items-center justify-center gap-6 sm:gap-12 md:gap-16 lg:gap-24 max-w-6xl mx-auto py-6">
+          <div className="flex flex-row items-center justify-center gap-7 sm:gap-12 md:gap-16 lg:gap-24 max-w-6xl mx-auto py-6">
             {partners.map((partner) => (
               <div
                 key={partner.name}

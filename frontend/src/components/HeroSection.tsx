@@ -74,7 +74,7 @@ export default function HeroSection() {
             alt="Alfa Beauty" 
             width={600} 
             height={200} 
-            className="h-20 sm:h-24 md:h-36 lg:h-44 w-auto object-contain drop-shadow-md hover:scale-105 transition-all duration-300" 
+            className="h-24 sm:h-28 md:h-36 lg:h-44 w-auto object-contain drop-shadow-md hover:scale-105 transition-all duration-300" 
             priority 
           />
         </div>
