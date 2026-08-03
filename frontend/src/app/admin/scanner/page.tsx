@@ -228,8 +228,8 @@ export default function ScannerPage() {
 
       {/* Signature Brand Header (Exact match with main site header) */}
       <header className="relative z-50 flex items-center justify-between px-6 md:px-12 pt-2 md:pt-3 pb-2 w-full max-w-[1600px] mx-auto text-xs font-semibold tracking-wider text-black">
-        {/* Socials & Contact CTAs */}
-        <div className="flex items-center gap-3 w-1/3">
+        {/* Socials & Contact CTAs (Desktop Only) */}
+        <div className="hidden md:flex items-center gap-3 w-1/3">
           <div className="flex items-center gap-2">
             {/* WhatsApp CTA Icon */}
             <a
@@ -269,15 +269,15 @@ export default function ScannerPage() {
           <span className="font-bold text-[11px] md:text-xs">@alfabeauty_id</span>
         </div>
 
-        {/* Logo (Centered on Mobile & Desktop) */}
+        {/* Logo (Centered on Mobile & Desktop - +100% Size) */}
         <div className="w-full md:w-1/3 flex justify-center py-1">
           <Link href="/">
             <Image
               src="/images/logo-alfa-beauty.png"
               alt="Alfa Beauty"
-              width={300}
-              height={100}
-              className="h-12 sm:h-14 md:h-20 lg:h-24 w-auto object-contain drop-shadow-sm hover:opacity-90 transition-opacity"
+              width={600}
+              height={200}
+              className="h-20 sm:h-24 md:h-36 lg:h-44 w-auto object-contain drop-shadow-md hover:scale-105 transition-all duration-300"
               priority
             />
           </Link>
