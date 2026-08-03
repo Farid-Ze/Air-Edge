@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseFetch } from "@/lib/supabase";
+import { supabaseAdminFetch } from "@/lib/supabase";
 
 export async function PUT(
   request: Request,
@@ -11,7 +11,7 @@ export async function PUT(
     const { name, email, institution, is_attended } = body;
 
     // 1. Fetch existing participant
-    const { data: existing } = await supabaseFetch<any[]>(
+    const { data: existing } = await supabaseAdminFetch<any[]>(
       `/participants?id=eq.${id}&select=*`
     );
 
@@ -41,7 +41,7 @@ export async function PUT(
 
     updateData.updated_at = new Date().toISOString();
 
-    const { data: updated, error } = await supabaseFetch<any[]>(
+    const { data: updated, error } = await supabaseAdminFetch<any[]>(
       `/participants?id=eq.${id}`,
       {
         method: "PATCH",
@@ -76,7 +76,7 @@ export async function DELETE(
   try {
     const { id } = await params;
 
-    const { error } = await supabaseFetch<any[]>(`/participants?id=eq.${id}`, {
+    const { error } = await supabaseAdminFetch<any[]>(`/participants?id=eq.${id}`, {
       method: "DELETE",
     });
 

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseFetch } from "@/lib/supabase";
+import { supabaseAdminFetch } from "@/lib/supabase";
 import crypto from "crypto";
 
 export async function GET(request: Request) {
@@ -17,7 +17,7 @@ export async function GET(request: Request) {
       query += `&or=(name.ilike.${q},email.ilike.${q},institution.ilike.${q})`;
     }
 
-    const { data: allData, error } = await supabaseFetch<any[]>(query, {
+    const { data: allData, error } = await supabaseAdminFetch<any[]>(query, {
       headers: { Prefer: "count=exact" },
     });
 
@@ -32,8 +32,8 @@ export async function GET(request: Request) {
     const paginatedData = allData ? allData.slice(offset, offset + limit) : [];
 
     // 2. Fetch stats
-    const { data: totalRegistered } = await supabaseFetch<any[]>("/participants?select=id");
-    const { data: totalAttended } = await supabaseFetch<any[]>("/participants?is_attended=eq.true&select=id");
+    const { data: totalRegistered } = await supabaseAdminFetch<any[]>("/participants?select=id");
+    const { data: totalAttended } = await supabaseAdminFetch<any[]>("/participants?is_attended=eq.true&select=id");
 
     const totalRegCount = totalRegistered ? totalRegistered.length : 0;
     const totalAttCount = totalAttended ? totalAttended.length : 0;
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
     const cleanInstitution = institution ? String(institution).trim() : null;
 
     // Check existing email
-    const { data: existing } = await supabaseFetch<any[]>(
+    const { data: existing } = await supabaseAdminFetch<any[]>(
       `/participants?email=eq.${encodeURIComponent(cleanEmail)}&select=*`
     );
 
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
     const attended = Boolean(is_attended);
     const now = attended ? new Date().toISOString() : null;
 
-    const { data: inserted, error } = await supabaseFetch<any[]>("/participants", {
+    const { data: inserted, error } = await supabaseAdminFetch<any[]>("/participants", {
       method: "POST",
       body: JSON.stringify({
         ticket_id: newTicketId,

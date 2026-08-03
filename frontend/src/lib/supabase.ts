@@ -52,3 +52,47 @@ export async function supabaseFetch<T>(
     return { data: null, error: { message: err.message || "Network error" } };
   }
 }
+
+/**
+ * Admin fetch wrapper bypassing RLS using Service Role Key (ONLY USE IN SERVER ENV)
+ */
+export async function supabaseAdminFetch<T>(
+  endpoint: string,
+  options: RequestInit = {}
+): Promise<{ data: T | null; error: any; count?: number }> {
+  const url = `${SUPABASE_URL}/rest/v1${endpoint}`;
+  const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
+
+  if (SERVICE_KEY === SUPABASE_ANON_KEY) {
+    console.warn("WARNING: SUPABASE_SERVICE_ROLE_KEY is not set. Using ANON KEY instead. Operations may fail if RLS is enabled.");
+  }
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        "apikey": SERVICE_KEY,
+        "Authorization": `Bearer ${SERVICE_KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=representation",
+        ...options.headers,
+      },
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      try {
+        const errJson = JSON.parse(errText);
+        return { data: null, error: errJson };
+      } catch {
+        return { data: null, error: { message: errText || `Error ${response.status}` } };
+      }
+    }
+
+    const data = await response.json();
+    return { data, error: null };
+  } catch (err: any) {
+    return { data: null, error: { message: err.message || "Network error" } };
+  }
+}

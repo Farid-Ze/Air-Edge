@@ -200,3 +200,31 @@ export async function deleteParticipant(
     method: "DELETE",
   });
 }
+
+/**
+ * Formats ISO date string to clean Indonesian local date & time.
+ * Example: "2026-08-04T03:07:25.000Z" -> "04 Agu 2026, 10:07:25 WIB"
+ */
+export function formatDateTime(dateStr?: string | null): string {
+  if (!dateStr) return "—";
+  try {
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return dateStr;
+    
+    const formatted = date.toLocaleString("id-ID", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Jakarta",
+    });
+    
+    return `${formatted.replace(/\./g, ":")} WIB`;
+  } catch {
+    return dateStr;
+  }
+}
+
