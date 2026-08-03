@@ -27,8 +27,8 @@ export default function AdminLoginPage() {
     setError(null);
     setIsLoading(true);
 
-    setTimeout(() => {
-      const result = loginAdmin(username, password);
+    setTimeout(async () => {
+      const result = await loginAdmin(username, password);
 
       if (result.success) {
         router.push("/admin-alfa-beauty");
