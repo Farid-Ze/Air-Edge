@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { supabaseFetch } from "@/lib/supabase";
+import { supabaseAdminFetch } from "@/lib/supabase";
+import { sendTicketEmail } from "@/lib/email";
 import crypto from "crypto";
 
 export async function POST(request: Request) {
@@ -14,12 +15,20 @@ export async function POST(request: Request) {
       );
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { success: false, message: "Format email tidak valid." },
+        { status: 400 }
+      );
+    }
+
     const cleanEmail = String(email).trim().toLowerCase();
     const cleanName = String(name).trim();
     const cleanInstitution = institution ? String(institution).trim() : null;
 
     // 1. Check existing email in Supabase
-    const { data: existing } = await supabaseFetch<any[]>(
+    const { data: existing } = await supabaseAdminFetch<any[]>(
       `/participants?email=eq.${encodeURIComponent(cleanEmail)}&select=*`
     );
 
@@ -43,7 +52,7 @@ export async function POST(request: Request) {
 
     // 2. Insert new participant into Supabase
     const newTicketId = crypto.randomUUID();
-    const { data: inserted, error } = await supabaseFetch<any[]>("/participants", {
+    const { data: inserted, error } = await supabaseAdminFetch<any[]>("/participants", {
       method: "POST",
       body: JSON.stringify({
         ticket_id: newTicketId,
@@ -63,10 +72,21 @@ export async function POST(request: Request) {
     }
 
     const created = inserted[0];
+
+    // 3. Send Ticket Pass Email via SMTP
+    sendTicketEmail({
+      toEmail: created.email,
+      participantName: created.name,
+      ticketId: created.ticket_id,
+      institution: created.institution,
+    }).catch((emailErr) => {
+      console.error("Async ticket email error:", emailErr);
+    });
+
     return NextResponse.json(
       {
         success: true,
-        message: "Registrasi berhasil! Tiket Anda telah diterbitkan.",
+        message: "Registrasi berhasil! Tiket Anda telah diterbitkan dan dikirimkan ke email.",
         data: {
           id: created.id,
           ticket_id: created.ticket_id,

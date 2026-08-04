@@ -23,7 +23,7 @@ export default function HeroSection() {
       </div>
 
       {/* Top Header (UX Best Practice: Clean Centered Logo on Mobile, Full 3-Column on Desktop) */}
-      <header className="relative z-50 flex items-center justify-between px-6 md:px-12 pt-2 md:pt-3 pb-2 w-full max-w-[1600px] mx-auto text-xs font-semibold tracking-wider text-black">
+      <header className="relative z-50 flex items-center justify-between px-6 md:px-12 pt-1 md:pt-2 pb-0 w-full max-w-[1600px] mx-auto text-xs font-semibold tracking-wider text-black">
         {/* Socials & Contact CTAs (Desktop Only) */}
         <div className="hidden md:flex items-center gap-3 w-1/3">
           <div className="flex items-center gap-2">
@@ -67,14 +67,14 @@ export default function HeroSection() {
           </a>
         </div>
 
-        {/* Logo (Centered on Mobile & Desktop - +100% Size) */}
-        <div className="w-full md:w-1/3 flex justify-center py-1">
+        {/* Logo (Centered on Mobile & Desktop - Large Size) */}
+        <div className="w-full md:w-1/3 flex justify-center py-0">
           <Image 
             src="/images/logo-alfa-beauty.png" 
             alt="Alfa Beauty" 
             width={600} 
             height={200} 
-            className="h-20 sm:h-24 md:h-36 lg:h-44 w-auto object-contain drop-shadow-md hover:scale-105 transition-all duration-300" 
+            className="h-24 sm:h-28 md:h-36 lg:h-44 w-auto object-contain drop-shadow-md hover:scale-105 transition-all duration-300" 
             priority 
           />
         </div>
@@ -88,7 +88,7 @@ export default function HeroSection() {
       </header>
 
       {/* Hero Canvas Stage (Shared Boundary for Central Text & Side Characters) */}
-      <div className="relative z-20 flex-1 flex flex-col items-center justify-start pt-2 md:pt-4 px-4 w-full max-w-[1600px] mx-auto min-h-[420px] sm:min-h-[500px] md:min-h-[620px] lg:min-h-[720px]">
+      <div className="relative z-20 flex-1 flex flex-col items-center justify-start pt-0 -mt-3 sm:-mt-5 md:-mt-8 px-4 w-full max-w-[1600px] mx-auto min-h-[420px] sm:min-h-[500px] md:min-h-[620px] lg:min-h-[720px]">
         
         {/* Central Content Column */}
         <div className="relative z-20 flex flex-col items-center text-center max-w-2xl mx-auto pointer-events-none">
@@ -96,7 +96,7 @@ export default function HeroSection() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[9px] md:text-[12px] font-bold tracking-[0.3em] md:tracking-[0.4em] text-gray-700 uppercase mb-3 text-center"
+            className="text-[9px] md:text-[12px] font-bold tracking-[0.3em] md:tracking-[0.4em] text-gray-700 uppercase mb-1 sm:mb-2 text-center"
           >
             COLLABORATION WITH <br className="md:hidden" /> EPOCH ACADEMY &amp; HIKARI SCISSORS
           </motion.p>
@@ -122,12 +122,12 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="relative z-40 flex flex-col items-center mt-3 md:mt-5 max-w-[280px] sm:max-w-md md:max-w-lg lg:max-w-xl text-center px-2"
+            className="relative z-40 flex flex-col items-center mt-3 md:mt-5 max-w-[210px] xs:max-w-[230px] sm:max-w-md md:max-w-lg lg:max-w-xl text-center px-1"
           >
-            <p className="text-[10px] sm:text-xs md:text-sm font-extrabold italic tracking-[0.18em] sm:tracking-[0.2em] md:tracking-widest uppercase mb-2 text-[#111111] drop-shadow-[0_1px_3px_rgba(255,255,255,0.9)]">
+            <p className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm font-extrabold italic tracking-[0.15em] sm:tracking-[0.2em] md:tracking-widest uppercase mb-1.5 sm:mb-2 text-[#111111] drop-shadow-[0_1px_3px_rgba(255,255,255,0.9)]">
               UNLEASH MOVEMENT. DEFINE IDENTITY.
             </p>
-            <p className="text-[11px] sm:text-xs md:text-sm text-[#111111] leading-relaxed font-semibold drop-shadow-[0_1px_3px_rgba(255,255,255,0.9)] max-w-md">
+            <p className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm text-[#111111] leading-relaxed font-semibold drop-shadow-[0_1px_3px_rgba(255,255,255,0.9)] max-w-[200px] xs:max-w-[220px] sm:max-w-md">
               Sebuah kolaborasi eksklusif yang menghadirkan teknik cutting &amp; coloring modern untuk menciptakan karakter dan keunikan tanpa batas.
             </p>
           </motion.div>
@@ -140,7 +140,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="relative w-[38%] sm:w-[32%] md:w-[27%] lg:w-[24%] xl:w-[22%] h-full max-h-[750px] left-[-8%] sm:left-[-2%] md:left-[1%] lg:left-[4%] [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]"
+            className="relative w-[34%] sm:w-[32%] md:w-[27%] lg:w-[24%] xl:w-[22%] h-full max-h-[750px] left-[-3%] sm:left-[-2%] md:left-[1%] lg:left-[4%] [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]"
           >
             <Image 
               src="/images/hero-model-right-clean.png" 
@@ -157,7 +157,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="relative w-[38%] sm:w-[32%] md:w-[27%] lg:w-[24%] xl:w-[22%] h-full max-h-[750px] right-[-8%] sm:right-[-2%] md:right-[1%] lg:right-[4%] [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]"
+            className="relative w-[34%] sm:w-[32%] md:w-[27%] lg:w-[24%] xl:w-[22%] h-full max-h-[750px] right-[-3%] sm:right-[-2%] md:right-[1%] lg:right-[4%] [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]"
           >
             <Image 
               src="/images/hero-model-left.png" 
@@ -188,12 +188,12 @@ export default function HeroSection() {
           <div className="absolute -top-[120px] sm:-top-[180px] md:-top-[260px] left-1/2 -translate-x-1/2 w-[85%] max-w-[900px] h-[300px] sm:h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(235,153,153,0.2)_0%,rgba(216,107,107,0.05)_45%,transparent_70%)] blur-3xl pointer-events-none z-10" />
 
           {/* Guest Speakers Image (Clean Soft Ambient Shadow & Seamless Masking) */}
-          <div className="absolute -top-[95px] sm:-top-[140px] md:-top-[200px] lg:-top-[240px] left-1/2 -translate-x-1/2 w-[72%] sm:w-[62%] md:w-[580px] lg:w-[720px] xl:w-[800px] h-[260px] sm:h-[350px] md:h-[450px] lg:h-[500px] pointer-events-auto z-20 hover:scale-[1.02] transition-transform duration-700 [mask-image:linear-gradient(to_bottom,black_85%,transparent_98%)]">
+          <div className="absolute -top-[55px] sm:-top-[95px] md:-top-[140px] lg:-top-[170px] left-1/2 -translate-x-1/2 w-[72%] sm:w-[62%] md:w-[580px] lg:w-[720px] xl:w-[800px] h-[260px] sm:h-[350px] md:h-[450px] lg:h-[500px] pointer-events-auto z-20 hover:scale-[1.02] transition-transform duration-700 [mask-image:linear-gradient(to_bottom,black_50%,transparent_90%)]">
             <Image src="/images/speakers-duo.png" alt="Guest Speakers" fill className="object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)]" priority />
           </div>
 
           {/* Speaker Info Layout */}
-          <div className="relative z-30 flex justify-between w-full max-w-[1100px] mx-auto px-3 sm:px-6 md:px-12 mb-12 sm:mb-16 md:mb-24 mt-12 md:mt-8">
+          <div className="relative z-30 flex justify-between w-full max-w-[1100px] mx-auto px-3 sm:px-6 md:px-12 mb-12 sm:mb-16 md:mb-24 mt-16 sm:mt-20 md:mt-16">
             {/* Left Speaker Info */}
             <div className="text-left w-[48%] sm:w-[45%] md:w-[40%]">
               <p className="italic text-[#EB9999] font-serif text-[10px] md:text-base mb-1">Guest Speaker</p>

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabaseFetch } from "@/lib/supabase";
+import { formatDateTime } from "@/lib/api";
 
 export async function POST(request: Request) {
   try {
@@ -31,9 +32,7 @@ export async function POST(request: Request) {
 
     // 2. Check if already attended
     if (participant.is_attended) {
-      const formattedTime = participant.attended_at
-        ? new Date(participant.attended_at).toLocaleString("id-ID")
-        : "Waktu tidak tercatat";
+      const formattedTime = formatDateTime(participant.attended_at);
 
       return NextResponse.json(
         {
@@ -43,7 +42,7 @@ export async function POST(request: Request) {
             name: participant.name,
             email: participant.email,
             institution: participant.institution,
-            attended_at: participant.attended_at,
+            attended_at: formattedTime,
           },
         },
         { status: 400 }
@@ -79,7 +78,7 @@ export async function POST(request: Request) {
           name: result.name,
           email: result.email,
           institution: result.institution,
-          attended_at: result.attended_at,
+          attended_at: formatDateTime(result.attended_at || now),
         },
       },
       { status: 200 }
